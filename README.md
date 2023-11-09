@@ -5,6 +5,7 @@
 ## 📌 공부 주제
 
 ### AWS 리소스
+- [EC2 인스턴스](https://github.com/Ohjiwoo-lab/aws-architecture-study/blob/main/resources/EC2.md)
 
 ### AWS 서비스
 
