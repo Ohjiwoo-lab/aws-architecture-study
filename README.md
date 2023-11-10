@@ -4,9 +4,6 @@
 
 ## 📌 공부 주제
 
-### AWS 리소스
-- [EC2 인스턴스](https://github.com/Ohjiwoo-lab/aws-architecture-study/blob/main/resources/EC2.md)
-
-### AWS 서비스
-
-### Well-Architected
+### Amazon Elastic Compute Cloud (EC2)
+- [EC2 인스턴스](https://github.com/Ohjiwoo-lab/aws-architecture-study/blob/main/EC2/instance.md)
+- [네트워킹](https://github.com/Ohjiwoo-lab/aws-architecture-study/blob/main/EC2/networking.md)
