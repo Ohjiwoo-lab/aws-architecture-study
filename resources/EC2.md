@@ -17,6 +17,7 @@ Elastic Compute Cloud
 sudo apt update
 sudo apt install git docker
 ```
+<br/>
 
 ## EC2 인스턴스 유형
 1. 범용 목적
@@ -39,6 +40,8 @@ sudo apt install git docker
 
 6. HPC 최적화
     - High Performance Computing 작업에 적합
+
+<br/>
 
 ## 보안 그룹
 - EC2 인스턴스에 들어오고 나가는 트래픽을 제어하기 위한 방화벽
@@ -65,8 +68,10 @@ sudo apt install git docker
 - 443 - HTTPS (보안 사이트에 액세스)
 - 3389 - RDP (윈도우 인스턴스에 로그인)
 
+<br/>
 
 ## 인스턴스 구매 옵션
+
 ### 온디맨드 EC2 인스턴스
 - 필요한 만큼 인스턴스를 사용하고, 사용한 만큼 비용을 지불
 - 비용 예측이 쉽지만 초 단위로 요금을 지불하기 때문에 가장 비용이 비싸다.
@@ -128,6 +133,39 @@ sudo apt install git docker
 - 인스턴스를 실제로 실행하는 지에 상관없이 예약하고 있는 동안에는 온디맨드 요금이 부과된다.
 - 특정한 리전에 있어야만 하는 단기적이고 중단 없는 워크로드에 적합하다.
 
+<br/>
+
+## 배치 그룹
+- EC2 인스턴스가 데이터센터에 배치되는 방식
+
+### 클러스터 배치 그룹
+![image](https://github.com/Ohjiwoo-lab/aws-architecture-study/assets/74577768/68c9e2fd-2cbd-46db-8a33-db12fee6b221)
+
+- 단일 가용 영역 내에 모든 인스턴스를 그룹화하여 배치하는 방식이다.
+- 모든 인스터스가 동일한 가용 영역의 동일한 하드웨어 랙에 배치된다.
+- 그래서 인스턴스 간에 직접적으로 연결되기 때문에 지연시간이 짧다.
+- 하지만 하드웨어에 문제가 발생하면 모든 EC2 인스턴스가 영향을 받는다.
+- 높은 대역폭과 짧은 지연 시간을 필요로 하는 빅데이터 분석 같은 작업에 적합하다.
+
+### 분산 배치 그룹
+![image](https://github.com/Ohjiwoo-lab/aws-architecture-study/assets/74577768/ee02a1a3-d7b4-4fde-8128-e3f04dae6ec3)
+
+- 모든 인스턴스가 서로 다른 하드웨어 랙에 배치되는 방시기이다.
+- 즉, 하나의 하드웨어에 하나의 EC2 인스턴스가 들어가는 것이다.
+- 가용 영역별로 랙이 7개까지 존재할 수 있으므로, 하나의 가용 영역에는 총 7개의 인스턴스가 배치될 수 있다.
+- 가용성을 극대화하고, 하드웨어 장애로부터 위험성을 최소화해야하는 경우에 적합하다.
+
+### 분할 배치 그룹
+![image](https://github.com/Ohjiwoo-lab/aws-architecture-study/assets/74577768/1627a076-6787-4099-b97a-04ee35fe3a85)
+
+- 인스턴스를 파티션을 기준으로 분할하여 분산시키는 방식이다.
+- 파티션은 하나의 하드웨어 랙이라고 생각하면 된다. 즉 하나의 하드웨어에 여러 EC2 인스턴스를 배치하긴 하지만, 분산 배치 그룹처럼 인스턴스를 분산시키기 위한 배치 그룹이다.
+- 가용 영역별로 7개의 파티션이 존재할 수 있고, 파티션 내에는 여러 개의 EC2 인스턴스가 배치된다.
+- 여러 하드웨어로 인스턴스를 분산하여 장애로부터의 위험을 최소화하면서도, 파티션 내에 최대 수백 개의 EC2 인스턴스를 배치할 수 있다는 점에서 클러스터 배치 그룹과 분산 배치 그룹의 장점만을 취합한 방식이라고 할 수 있다.
+- 파티션 인식이 가능한 Hadoop, Cassandra, Kafka 같은 서비스에 적합하다.
+- EC2 인스턴스가 어떤 파티션에 있는 지 알기 위해 메타데이터 서비스를 이용한다.
+
 <hr/>
 
-> 이는 Udemy - AWS Solution Architect Associate C-03 강의를 들으면서 공부한 내용을 바탕으로 하고있습니다.
+> 이는 Udemy - AWS Solution Architect Associate C-03 강의를 들으면서 공부한 내용을 바탕으로 하고있습니다.   
+> 이미지 출처: https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/placement-groups.html
